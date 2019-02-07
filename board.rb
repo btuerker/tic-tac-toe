@@ -36,8 +36,9 @@ class Board
                    ((@state[2] != '-') && (@state[2]== @state[5]) && (@state[2] == @state[8])) ||
                    ((@state[3] != '-') && (@state[3]== @state[4]) && (@state[3] == @state[5])) ||
                    ((@state[6] != '-') && (@state[6]== @state[7]) && (@state[6] == @state[8]))
-    return 0
-    return -1
+     @state.each {|e| return -1 if e == '-'}
+     return 0
   end
-end
 
+  
+end
