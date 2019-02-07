@@ -11,7 +11,6 @@ def display_board state
   puts
 end
 
-
 puts "Player 1: Please enter your name"
 player_one = gets.chomp
 puts "Player 2: Please enter your name"
