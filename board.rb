@@ -10,16 +10,19 @@ class Board
   public
 
   def make_move(move)
-    valid_move?(move)
+    if valid_move?(move)
+      @state[move - 1] = (@move_counter % 2 == 0) ? 'X' : 'O'
+      @move_counter += 1
+      return true
+    end
+    return false
   end
 
   def valid_move?(move)
-    return false if move =~ /^(0|[1-9][0-9]*)/
-    return false if move < 1 || move > 9
-    return false if @state[move - 1] != '-'
-    @state[move - 1] = (@move_counter % 2 == 0) ? 'X' : 'O'
-    @move_counter += 1
-    return true
+    false if move =~ /^(0|[1-9][0-9]*)/
+    false if move < 1 || move > 9
+    false if @state[move - 1] != '-'
+    true
   end
   # 0 1 2
   # 3 4 5

@@ -22,14 +22,14 @@ game = Game.new(Player.new(player_one), Player.new(player_two))
 while true do
   system('clear')
   while game.ended? == GameState::NOT_ENDED
-    puts "#{game.player_one.info} \n #{game.player_two.info}"
+    puts "#{game.player_one.info} \n#{game.player_two.info}"
     puts
     display_board(game.board.state)
     puts
     puts "It's #{game.current_player}'s turn"
     puts "Make a move from 1 - 9"
     move = gets.chomp.to_i
-    until game.board.make_move(move)
+    until game.make_move(move)
       system('clear')
       display_board(game.board.state)
       puts "It's #{game.current_player}'s turn"

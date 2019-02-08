@@ -13,6 +13,9 @@ class Game
     (@board.move_counter % 2 == 0) ? @player_one.name : @player_two.name
   end
 
+  def make_move move
+    @board.make_move(move)
+  end
   def ended?
     @board.ended?
   end
