@@ -1,14 +1,15 @@
 require("./game.rb")
-puts "hello, world!"
+require("./game_state.rb")
+require("./player.rb")
 
 def display_board state
-  for i in 0...state.length
-    print state[i]
-    if i == 2 || i == 5
-      puts
-    end
+  counter = 0
+  3.times do
+    print "  #{state[counter]} #{state[counter+1]} #{state[counter+2]}  "
+    print "  #{counter+1} #{counter+2} #{counter+3}"
+    puts
+    counter += 3
   end
-  puts
 end
 
 puts "Player 1: Please enter your name"
@@ -16,13 +17,17 @@ player_one = gets.chomp
 puts "Player 2: Please enter your name"
 player_two = gets.chomp
 
-game = Game.new("Burhan", "Steph")
+game = Game.new(Player.new(player_one), Player.new(player_two))
 
-# To-Do -> add wrappers for indirections something like game.ended? instead of game.board.game_ended
 while true do
-  while game.ended? == -1
+  system('clear')
+  while game.ended? == GameState::NOT_ENDED
+    puts "#{game.player_one.info} \n #{game.player_two.info}"
+    puts
+    display_board(game.board.state)
+    puts
     puts "It's #{game.current_player}'s turn"
-    puts "Make a move from 0 - 9"
+    puts "Make a move from 1 - 9"
     move = gets.chomp.to_i
     until game.board.make_move(move)
       system('clear')
@@ -32,13 +37,34 @@ while true do
       move = gets.chomp.to_i
     end
     system('clear')
-    display_board(game.board.state)
   end
-  puts "No one win ! \n Are you want to play again ? \n Type 1 for 'Yes' and 0 for 'NO' !"
-  answer = gets.chomp
-  if answer == "0"
-    puts "Thank you for your playing our amazing game :) \n Good Bye"
+  display_board(game.board.state)
+  if game.ended? == GameState::X_WON
+     game.player_one.increment_score
+     puts "#{player_one} won the game!"
+  end
+  if game.ended? == GameState::O_WON
+    game.player_two.increment_score
+    puts "#{player_two} won the game!"
+  end
+  if game.ended? == GameState::TIED
+    puts "Game is tied"
+  end
+
+  puts "Are you want to player again? Y/N"
+  answer = gets.chomp.upcase
+
+  until answer == 'Y' || answer == 'N'
+    system('clear')
+    puts "You put invalid input, try again!"
+    puts "Are you want to player again? Y/N"
+    answer = gets.chomp.upcase
+  end
+  if answer == "N"
+    puts "Thank you for your playing our amazing game :) \nGood Bye"
     break
+  elsif answer == 'Y'
+     game.board.reset
+     game.swap_players
   end
-  game.board.reset
-end
+ end

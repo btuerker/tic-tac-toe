@@ -10,10 +10,14 @@ class Game
   end
 
   def current_player
-    (@board.move_counter % 2 == 0) ? @player_one : @player_two
+    (@board.move_counter % 2 == 0) ? @player_one.name : @player_two.name
   end
 
   def ended?
     @board.ended?
+  end
+
+  def swap_players
+    @player_one, @player_two = @player_two, @player_one
   end
 end
