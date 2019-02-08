@@ -19,17 +19,26 @@ player_two = gets.chomp
 game = Game.new("Burhan", "Steph")
 
 # To-Do -> add wrappers for indirections something like game.ended? instead of game.board.game_ended
-while game.ended? != 1
-  puts "It's #{game.current_player}'s turn"
-  puts "Make a move from 0 - 9"
-  move = gets.chomp.to_i
-  until game.board.make_move(move)
+while true do
+  while game.ended? == -1
+    puts "It's #{game.current_player}'s turn"
+    puts "Make a move from 0 - 9"
+    move = gets.chomp.to_i
+    until game.board.make_move(move)
+      system('clear')
+      display_board(game.board.state)
+      puts "It's #{game.current_player}'s turn"
+      puts "Please make a valid move from 0 - 9"
+      move = gets.chomp.to_i
+    end
     system('clear')
     display_board(game.board.state)
-    puts "It's #{game.current_player}'s turn"
-    puts "Please make a valid move from 0 - 9"
-    move = gets.chomp.to_i
   end
-  system('clear')
-  display_board(game.board.state)
+  puts "No one win ! \n Are you want to play again ? \n Type 1 for 'Yes' and 0 for 'NO' !"
+  answer = gets.chomp
+  if answer == "0"
+    puts "Thank you for your playing our amazing game :) \n Good Bye"
+    break
+  end
+  game.board.reset
 end

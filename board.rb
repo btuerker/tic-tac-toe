@@ -32,4 +32,9 @@ class Board
      @state.each {|e| return -1 if e == '-'}
      return 0
   end
+
+  def reset
+    @state = ['-','-','-','-','-','-','-','-','-']
+    @move_counter = 0
+  end
 end
