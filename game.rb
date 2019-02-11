@@ -1,13 +1,15 @@
 require("./board")
 
 class Game
-  attr_accessor :player_one, :player_two, :board
+  attr_accessor :player_one, :player_two, :board, :player_one_score, :player_two_score, :move_counter
 
-  def initialize (player_one, player_two)
-    @board = Board.new(3)
+  def initialize (player_one, player_two, game_size)
+    @board = Board.new(game_size)
     @player_one = player_one
     @player_two = player_two
     @move_counter = 0
+    @player_one_score = 0
+    @player_two_score = 0
   end
 
   def current_player
@@ -22,7 +24,6 @@ class Game
   end
 
   def ended?
-    puts @board.game_state
     @board.game_state
   end
 
@@ -34,5 +35,6 @@ class Game
 
   def swap_players
     @player_one, @player_two = @player_two, @player_one
+    @player_one_score, @player_two_score = @player_two_score, @player_one_score
   end
 end

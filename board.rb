@@ -3,9 +3,19 @@ require("./game_state.rb")
 class Board
   attr_accessor :board_state, :game_state, :move_counter
   def initialize(size)
-    @board_state = [['-','-','-'],['-','-','-'],['-','-','-']]
+    @board_state = create_board(size)
     @game_state = GameState.state('-')
     @size = size
+  end
+
+  def create_board(game_size)
+    board = Array.new(game_size){Array.new(game_size)}
+    for i in 0...game_size
+      for j in 0...game_size
+        board[i][j] = '-'
+      end
+    end
+    return board
   end
 
   def make_move(move, player_mark)
@@ -96,8 +106,7 @@ class Board
   end
 
   def reset
-    @board_state = [['-','-','-'],['-','-','-'],['-','-','-']]
+    @board_state = create_board(@board_state.length)
     @game_state = GameState.state('-')
   end
 end
-
