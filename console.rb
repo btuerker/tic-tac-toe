@@ -25,21 +25,21 @@ while true do
   while game.ended? == GameState::NOT_ENDED
     puts "#{game.player_one.info} \n#{game.player_two.info}"
     puts
-    display_board(game.board.state)
+    display_board(game.board.board_state)
     puts
     puts "It's #{game.current_player}'s turn"
     puts "Make a move from 1 - 9"
     move = gets.chomp.to_i
     until game.make_move(move)
       system('clear')
-      display_board(game.board.state)
+      display_board(game.board.board_state)
       puts "It's #{game.current_player}'s turn"
       puts "Please make a valid move from 0 - 9"
       move = gets.chomp.to_i
     end
     system('clear')
   end
-  display_board(game.board.state)
+  display_board(game.board.board_state)
   if game.ended? == GameState::X_WON
      game.player_one.increment_score
      puts "#{player_one} won the game!"
@@ -58,7 +58,7 @@ while true do
   until answer == 'Y' || answer == 'N'
     system('clear')
     puts "You put invalid input, try again!"
-    puts "Are you want to player again? Y/N"
+    puts "Do you want to play again? Y/N"
     answer = gets.chomp.upcase
   end
   if answer == "N"

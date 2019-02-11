@@ -11,3 +11,5 @@ module GameState
     return NOT_ENDED if state == '-'
   end
 end
+
+

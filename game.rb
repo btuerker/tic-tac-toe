@@ -4,7 +4,7 @@ class Game
   attr_accessor :player_one, :player_two, :board
 
   def initialize (player_one, player_two)
-    @board = Board.new
+    @board = Board.new(3)
     @player_one = player_one
     @player_two = player_two
     @move_counter = 0
@@ -22,7 +22,8 @@ class Game
   end
 
   def ended?
-    @board.ended?
+    puts @board.game_state
+    @board.game_state
   end
 
   def reset
