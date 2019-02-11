@@ -7,17 +7,28 @@ class Game
     @board = Board.new
     @player_one = player_one
     @player_two = player_two
+    @move_counter = 0
   end
 
   def current_player
-    (@board.move_counter % 2 == 0) ? @player_one.name : @player_two.name
+    # TO-DO
+    # return only player not name
+    (@move_counter.even?) ? @player_one.name : @player_two.name
   end
 
   def make_move move
-    @board.make_move(move)
+    player_mark = (@move_counter.even?)? 'X' : 'O'
+    @move_counter += 1 if @board.make_move(move, player_mark)
   end
+
   def ended?
     @board.ended?
+  end
+
+  def reset
+    @board.reset
+    @move_counter = 0
+    swap_players
   end
 
   def swap_players

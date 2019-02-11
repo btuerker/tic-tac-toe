@@ -21,6 +21,7 @@ game = Game.new(Player.new(player_one), Player.new(player_two))
 
 while true do
   system('clear')
+  system('ll')
   while game.ended? == GameState::NOT_ENDED
     puts "#{game.player_one.info} \n#{game.player_two.info}"
     puts
@@ -64,7 +65,6 @@ while true do
     puts "Thank you for your playing our amazing game :) \nGood Bye"
     break
   elsif answer == 'Y'
-     game.board.reset
-     game.swap_players
+     game.reset
   end
- end
+end
