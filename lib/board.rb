@@ -5,29 +5,27 @@ class Board
   def initialize(size)
     @board_state = Array.new(size) { Array.new(size) { '-' } }
     @game_state = GameState.state('-')
-    @size = size
   end
 
   def make_move(move, player_mark)
+    return false unless valid_move?(move)
     x_coord, y_coord = translate_move(move)
-    if valid_move?(x_coord, y_coord)
-      @board_state[x_coord][y_coord] = player_mark
-      update_game_state
-      return true
-    end
-    return false
+    return false if @board_state[x_coord][y_coord] != '-'
+    @board_state[x_coord][y_coord] = player_mark
+    update_game_state
+    return true
   end
 
   def translate_move(move)
-    x_coord = (move - 1) / @size
-    y_coord = (move - 1) % @size
+    x_coord = (move - 1) / @board_state.length
+    y_coord = (move - 1) % @board_state.length
     return x_coord, y_coord
   end
 
-  def valid_move?(x_coord, y_coord)
-    # false if move =~ /^(0|[1-9][0-9]*)/
-    # false if move < 1 || move > @size * @size
-    false if @board_state[x_coord][y_coord] != '-'
+  def valid_move?(move)
+    return false if /^[0-9]+$/.match(move) == nil
+    move = move.to_i
+    return false if move < 1 || move > @board_state.length * @board_state.length
     true
   end
 

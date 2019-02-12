@@ -36,7 +36,7 @@ while true do
     puts
     puts "turn's number: #{game.move_counter + 1} It's #{game.current_player}'s turn"
     puts "Make a move from 1 - 9"
-    move = gets.chomp.to_i
+    move = gets.chomp
     until game.make_move(move)
       system('clear')
       display_board(game.board.board_state)
