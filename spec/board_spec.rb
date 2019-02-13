@@ -12,9 +12,9 @@ RSpec.describe Board do
       expect(board.board_state[0].length).to eql(10)
     end
 
-    it "should've game_state variable with initial GameState::NOT_ENDED" do
+    it "should've game_state variable with initial GameConstants::NOT_ENDED" do
       board = Board.new(3)
-      expect(board.game_state).to eql(GameState::NOT_ENDED)
+      expect(board.game_state).to eql(GameConstants::NOT_ENDED)
     end
   end
 
@@ -49,204 +49,204 @@ RSpec.describe Board do
   describe "#make_move" do
     it "#should return true if move is valid, return false if not" do
       board = Board.new(3)
-      expect(board.make_move('3','X')).to be true
-      expect(board.make_move('10','O')).to be false
+      expect(board.make_move('3',GameConstants::PLAYER_ONE_MARK)).to be true
+      expect(board.make_move('10',GameConstants::PLAYER_TWO_MARK)).to be false
     end
   end
 
   describe "#update_by_vertically" do
     it "should change state when finished by vertically" do
       board = Board.new(3)
-      board.make_move('1', 'X')
-      board.make_move('4', 'X')
-      board.make_move('7', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('4', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('7', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('2', 'X')
-      board.make_move('5', 'X')
-      board.make_move('8', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('2', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('8', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('3', 'X')
-      board.make_move('6', 'X')
-      board.make_move('9', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('3', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('6', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('9', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('1', 'O')
-      board.make_move('4', 'O')
-      board.make_move('7', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('1', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('4', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('7', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board.reset
 
-      board.make_move('2', 'O')
-      board.make_move('5', 'O')
-      board.make_move('8', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('2', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('5', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('8', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board.reset
 
-      board.make_move('3', 'O')
-      board.make_move('6', 'O')
-      board.make_move('9', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('3', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('6', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('9', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board = Board.new(5)
-      board.make_move('1', 'X')
-      board.make_move('6', 'X')
-      board.make_move('11', 'X')
-      board.make_move('16', 'X')
-      board.make_move('21', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('6', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('11', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('16', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('21', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board = Board.new(4)
-      board.make_move('1', 'O')
-      board.make_move('5', 'O')
-      board.make_move('9', 'O')
-      board.make_move('13', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('1', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('5', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('9', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('13', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
     end
   end
 
   describe "#update_by_horizontally" do
     it "should change state when finished by horizontally" do
       board = Board.new(3)
-      board.make_move('1', 'X')
-      board.make_move('2', 'X')
-      board.make_move('3', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('2', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('3', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('4', 'X')
-      board.make_move('5', 'X')
-      board.make_move('6', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('4', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('6', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('7', 'X')
-      board.make_move('8', 'X')
-      board.make_move('9', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('7', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('8', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('9', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('1', 'O')
-      board.make_move('2', 'O')
-      board.make_move('3', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('1', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('2', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('3', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board.reset
 
-      board.make_move('4', 'O')
-      board.make_move('5', 'O')
-      board.make_move('6', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('4', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('5', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('6', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board.reset
 
-      board.make_move('7', 'O')
-      board.make_move('8', 'O')
-      board.make_move('9', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('7', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('8', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('9', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board = Board.new(5)
-      board.make_move('1', 'X')
-      board.make_move('2', 'X')
-      board.make_move('3', 'X')
-      board.make_move('4', 'X')
-      board.make_move('5', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('2', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('3', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('4', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board = Board.new(4)
-      board.make_move('1', 'O')
-      board.make_move('2', 'O')
-      board.make_move('3', 'O')
-      board.make_move('4', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('1', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('2', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('3', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('4', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
     end
   end
 
   describe "#update_by_diagonally" do
      it "should change game state when finished by diagonally " do
       board = Board.new(3)
-      board.make_move('3', 'X')
-      board.make_move('5', 'X')
-      board.make_move('7', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('3', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('7', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('1', 'X')
-      board.make_move('5', 'X')
-      board.make_move('9', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('9', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
 
-      board.make_move('3', 'O')
-      board.make_move('5', 'O')
-      board.make_move('7', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('3', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('5', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('7', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board.reset
 
-      board.make_move('1', 'O')
-      board.make_move('5', 'O')
-      board.make_move('9', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('1', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('5', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('9', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board = Board.new(5)
-      board.make_move('1', 'X')
-      board.make_move('7', 'X')
-      board.make_move('13', 'X')
-      board.make_move('19', 'X')
-      board.make_move('25', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('7', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('13', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('19', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('25', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board.reset
-      board.make_move('5', 'X')
-      board.make_move('9', 'X')
-      board.make_move('13', 'X')
-      board.make_move('17', 'X')
-      board.make_move('21', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('5', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('9', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('13', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('17', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('21', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
 
       board = Board.new(4)
-      board.make_move('4', 'O')
-      board.make_move('7', 'O')
-      board.make_move('10', 'O')
-      board.make_move('13', 'O')
-      expect(board.game_state).to eql(GameState::O_WON)
+      board.make_move('4', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('7', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('10', GameConstants::PLAYER_TWO_MARK)
+      board.make_move('13', GameConstants::PLAYER_TWO_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_TWO_WON)
 
       board = Board.new(4)
-      board.make_move('1', 'X')
-      board.make_move('6', 'X')
-      board.make_move('11', 'X')
-      board.make_move('16', 'X')
-      expect(board.game_state).to eql(GameState::X_WON)
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('6', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('11', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('16', GameConstants::PLAYER_ONE_MARK)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
    end
   end
 
   describe "#reset" do
     it "should reset the board state and game state" do
       board = Board.new(3)
-      board.make_move('1', 'X')
-      board.make_move('2', 'X')
-      board.make_move('3', 'X')
-      initial_board = Array.new(3) { Array.new(3) { '-' } }
+      board.make_move('1', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('2', GameConstants::PLAYER_ONE_MARK)
+      board.make_move('3', GameConstants::PLAYER_ONE_MARK)
+      initial_board = Array.new(3) { Array.new(3) { GameConstants::EMPTY_MARK } }
       expect(board.board_state == initial_board).to be false
-      expect(board.game_state).to eql(GameState::X_WON)
+      expect(board.game_state).to eql(GameConstants::PLAYER_ONE_WON)
       board.reset
       expect(board.board_state == initial_board).to be true
-      expect(board.game_state).to eql(GameState::NOT_ENDED)
+      expect(board.game_state).to eql(GameConstants::NOT_ENDED)
     end
   end
 end

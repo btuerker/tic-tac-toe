@@ -1,6 +1,25 @@
 require_relative("./board.rb")
 require_relative("./player.rb")
 
+module GameConstants
+  EMPTY_MARK = '-'
+  PLAYER_ONE_MARK = 'X'
+  PLAYER_TWO_MARK = 'O'
+  TIED_MARK = '0'
+
+  PLAYER_ONE_WON = 'Player one won the game!'
+  PLAYER_TWO_WON = 'Player two won the game!'
+  TIED = 'Game is tied'
+  NOT_ENDED = 'Game is not ended'
+
+  def self.state(state)
+    return PLAYER_ONE_WON if state == PLAYER_ONE_MARK
+    return PLAYER_TWO_WON if state == PLAYER_TWO_MARK
+    return TIED           if state == TIED_MARK
+    return NOT_ENDED      if state == EMPTY_MARK
+  end
+end
+
 class Game
   attr_accessor :player_one, :player_two, :board, :player_one_score, :player_two_score, :move_counter
 
@@ -18,7 +37,7 @@ class Game
   end
 
   def make_move move
-    player_mark = (@move_counter.even?)? 'X' : 'O'
+    player_mark = (@move_counter.even?)? GameConstants::PLAYER_ONE_MARK : GameConstants::PLAYER_TWO_MARK
     @move_counter += 1 if @board.make_move(move, player_mark)
   end
 
@@ -37,3 +56,4 @@ class Game
     @player_one_score, @player_two_score = @player_two_score, @player_one_score
   end
 end
+
