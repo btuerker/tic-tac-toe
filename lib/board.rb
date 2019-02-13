@@ -9,7 +9,7 @@ class Board
 
   def make_move(move, player_mark)
     return false unless valid_move?(move)
-    x_coord, y_coord = translate_move(move)
+    x_coord, y_coord = translate_move(move.to_i)
     return false if @board_state[x_coord][y_coord] != '-'
     @board_state[x_coord][y_coord] = player_mark
     update_game_state
@@ -30,67 +30,54 @@ class Board
   end
 
   def update_game_state
-    ended_by_vertically?
-    ended_by_horizontally?
-    ended_by_diagonally?
+    update_by_vertically
+    update_by_horizontally
+    update_by_diagonally
+    is_tied = true
+    @board_state.each do |e|
+      e.each { |x| is_tied = false if x == '-' }
+    end
+    @game_state = GameState.state('0') if is_tied
+
   end
 
-  def ended_by_vertically?
+  def update_by_vertically
     for i in 0...@board_state.length
       is_all_same = true
       for j in 0...@board_state.length - 1
-        if @board_state[j][i] != @board_state[j+1][i]
-          is_all_same = false
-        end
+        is_all_same = false  if @board_state[j][i] != @board_state[j+1][i]
       end
-      if is_all_same
-        @game_state = GameState.state(@board_state[0][i])
-        return true
-      end
+      @game_state = GameState.state(@board_state[0][i]) if is_all_same
+      puts GameState.state(@board_state[0][i]) if is_all_same
     end
-     return false
   end
 
-  def ended_by_horizontally?
+  def update_by_horizontally
     for i in 0...@board_state.length
       is_all_same = true
       for j in 0...@board_state[0].length - 1
-        if @board_state[i][j] != @board_state[i][j+1]
-          is_all_same = false
-        end
+        is_all_same = false if @board_state[i][j] != @board_state[i][j+1]
       end
-      if is_all_same
-        @game_state = GameState.state(@board_state[i][0])
-        return true
-      end
+      @game_state = GameState.state(@board_state[i][0])  if is_all_same
     end
-     return false
+
   end
 
-  def ended_by_diagonally?
+  def update_by_diagonally
     is_all_same = true
     for i in 0...@board_state.length - 1
-      if @board_state[i][i] != @board_state[i+1][i+1]
-        is_all_same = false
-      end
+      is_all_same = false if @board_state[i][i] != @board_state[i+1][i+1]
     end
-    if is_all_same
-      @game_state = GameState.state(@board_state[0][0])
-      return true
-    end
+    @game_state = GameState.state(@board_state[0][0]) if is_all_same
     is_all_same = true
     counter = @board_state.length - 1
     for i in 0...@board_state.length - 1
-      puts "i#{i} counter:#{counter}"
       if @board_state[i][counter - i] != @board_state[i + 1][counter - i - 1]
         is_all_same = false
         break
       end
     end
-    if is_all_same
-      @game_state = GameState.state(@board_state[@board_state.length - 1][0])
-    end
-    return is_all_same
+    @game_state = GameState.state(@board_state[@board_state.length - 1][0]) if is_all_same
   end
 
   def reset

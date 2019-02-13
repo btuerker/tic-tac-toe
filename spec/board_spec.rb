@@ -48,7 +48,22 @@ RSpec.describe Board do
   end
 
   describe "#make_move" do
+    it "#should return true if move is valid, return false if not" do
+      board = Board.new(3)
+      expect(board.make_move('3','X')).to be true
+      expect(board.make_move('10','O')).to be false
+    end
+  end
 
+  describe "#update_by_vertically" do
+    it "should change game state" do
+      board = Board.new(3)
+      board.make_move('1', 'X')
+      board.make_move('4', 'X')
+      board.make_move('7', 'X')
+      print board.board_state
+      board.update_game_state
+      expect(board.game_state).to eql(GameState::X_WON)
+    end
   end
 end
-
