@@ -18,13 +18,13 @@ def display_board state
 end
 
 puts "Player 1: Please enter your name"
-player_one = gets.chomp
+player_one_name = gets.chomp
 puts "Player 2: Please enter your name"
-player_two = gets.chomp
+player_two_name = gets.chomp
 puts "Please add the number of game's size"
-game_size = gets.chomp.to_i
+board_size = gets.chomp.to_i
 
-game = Game.new(Player.new(player_one), Player.new(player_two), game_size)
+game = Game.new(player_one_name, player_two_name, board_size)
 
 while true do
   system('clear')

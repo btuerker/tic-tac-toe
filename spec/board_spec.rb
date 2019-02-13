@@ -235,4 +235,19 @@ RSpec.describe Board do
       expect(board.game_state).to eql(GameState::X_WON)
    end
   end
+
+  describe "#reset" do
+    it "should reset the board state and game state" do
+      board = Board.new(3)
+      board.make_move('1', 'X')
+      board.make_move('2', 'X')
+      board.make_move('3', 'X')
+      initial_board = Array.new(3) { Array.new(3) { '-' } }
+      expect(board.board_state == initial_board).to be false
+      expect(board.game_state).to eql(GameState::X_WON)
+      board.reset
+      expect(board.board_state == initial_board).to be true
+      expect(board.game_state).to eql(GameState::NOT_ENDED)
+    end
+  end
 end

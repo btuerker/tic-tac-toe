@@ -1,12 +1,13 @@
 require_relative("./board.rb")
+require_relative("./player.rb")
 
 class Game
   attr_accessor :player_one, :player_two, :board, :player_one_score, :player_two_score, :move_counter
 
-  def initialize (player_one, player_two, game_size)
-    @board = Board.new(game_size)
-    @player_one = player_one
-    @player_two = player_two
+  def initialize (player_one_name, player_two_name, board_size)
+    @board = Board.new(board_size)
+    @player_one = Player.new(player_one_name)
+    @player_two = Player.new(player_two_name)
     @move_counter = 0
     @player_one_score = 0
     @player_two_score = 0
