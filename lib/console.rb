@@ -7,15 +7,18 @@ def display_board state
   for i in 0...state.length
     for j in 0...state.length
       if state[i][j] == '-'
-        print " #{counter}"
+        print "#{counter}"
+        print (' ' * (2 / counter.to_s.length))
       else
-        print " #{state[i][j]}"
+        print ("#{state[i][j]}")
+        print (' ' * (2 / state[i][j].length))
       end
       counter += 1
     end
     puts
   end
 end
+
 
 puts "Player 1: Please enter your name"
 player_one_name = gets.chomp
@@ -49,11 +52,11 @@ while true do
   display_board(game.board.board_state)
   if game.ended? == GameState::X_WON
      game.player_one_score += 1
-     puts "#{player_one} won the game!"
+     puts "#{game.player_one.name} won the game!"
   end
   if game.ended? == GameState::O_WON
     game.player_two_score += 1
-    puts "#{player_two} won the game!"
+    puts "#{game.player_two.name} won the game!"
   end
   if game.ended? == GameState::TIED
     puts "Game is tied"
