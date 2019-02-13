@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './lib/board'
 
 RSpec.describe Board do
   describe "#initialize" do
