@@ -30,25 +30,31 @@ class Board
   end
 
   def update_game_state
-    update_by_vertically
-    update_by_horizontally
-    update_by_diagonally
-    is_tied = true
-    @board_state.each do |e|
-      e.each { |x| is_tied = false if x == '-' }
+    update_by_vertically if @game_state == GameState::NOT_ENDED
+    update_by_horizontally if @game_state == GameState::NOT_ENDED
+    update_by_diagonally if @game_state == GameState::NOT_ENDED
+    if @game_state == GameState::NOT_ENDED
+      is_tied = true
+      @board_state.each do |e|
+        e.each { |x| is_tied = false if x == '-' }
+      end
+      @game_state = GameState.state('0') if is_tied
     end
-    @game_state = GameState.state('0') if is_tied
-
   end
 
   def update_by_vertically
     for i in 0...@board_state.length
       is_all_same = true
       for j in 0...@board_state.length - 1
-        is_all_same = false  if @board_state[j][i] != @board_state[j+1][i]
+        if @board_state[j][i] == '-' || @board_state[j][i] != @board_state[j+1][i]
+          is_all_same = false
+          break
+        end
       end
-      @game_state = GameState.state(@board_state[0][i]) if is_all_same
-      puts GameState.state(@board_state[0][i]) if is_all_same
+      if is_all_same
+          @game_state = GameState.state(@board_state[0][i])
+          break
+      end
     end
   end
 
@@ -56,9 +62,15 @@ class Board
     for i in 0...@board_state.length
       is_all_same = true
       for j in 0...@board_state[0].length - 1
-        is_all_same = false if @board_state[i][j] != @board_state[i][j+1]
+        if @board_state[i][j] == '-' || @board_state[i][j] != @board_state[i][j+1]
+          is_all_same = false
+          break
+        end
       end
-      @game_state = GameState.state(@board_state[i][0])  if is_all_same
+     if is_all_same
+        @game_state = GameState.state(@board_state[i][0])
+        break
+     end
     end
 
   end
@@ -72,7 +84,7 @@ class Board
     is_all_same = true
     counter = @board_state.length - 1
     for i in 0...@board_state.length - 1
-      if @board_state[i][counter - i] != @board_state[i + 1][counter - i - 1]
+      if @board_state[i][counter - i] == '-' || @board_state[i][counter - i] != @board_state[i + 1][counter - i - 1]
         is_all_same = false
         break
       end
@@ -85,3 +97,4 @@ class Board
     @game_state = GameState.state('-')
   end
 end
+
