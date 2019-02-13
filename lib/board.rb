@@ -1,5 +1,3 @@
-require_relative("./game_state.rb")
-
 class Board
   attr_accessor :board_state, :game_state, :move_counter
   def initialize(size)
