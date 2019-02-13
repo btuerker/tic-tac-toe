@@ -14,9 +14,7 @@ class Game
   end
 
   def current_player
-    # TO-DO
-    # return only player not name
-    (@move_counter.even?) ? @player_one.name : @player_two.name
+    (@move_counter.even?) ? @player_one : @player_two
   end
 
   def make_move move
@@ -24,7 +22,7 @@ class Game
     @move_counter += 1 if @board.make_move(move, player_mark)
   end
 
-  def ended?
+  def state
     @board.game_state
   end
 

@@ -32,33 +32,33 @@ game = Game.new(player_one_name, player_two_name, board_size)
 while true do
   system('clear')
   system('ll')
-  while game.ended? == GameState::NOT_ENDED
+  while game.state == GameState::NOT_ENDED
     puts "#{game.player_one.name}: #{game.player_one_score} \n#{game.player_two.name}: #{game.player_two_score}"
     puts
     display_board(game.board.board_state)
     puts
-    puts "turn's number: #{game.move_counter + 1} It's #{game.current_player}'s turn"
+    puts "turn's number: #{game.move_counter + 1} It's #{game.current_player.name}'s turn"
     puts "Make a move from 1 - 9"
     move = gets.chomp
     until game.make_move(move)
       system('clear')
       display_board(game.board.board_state)
-      puts "It's #{game.current_player}'s turn"
+      puts "It's #{game.current_player.name}'s turn"
       puts "Please make a valid move from 0 - 9"
       move = gets.chomp.to_i
     end
     system('clear')
   end
   display_board(game.board.board_state)
-  if game.ended? == GameState::X_WON
+  if game.state == GameState::X_WON
      game.player_one_score += 1
      puts "#{game.player_one.name} won the game!"
   end
-  if game.ended? == GameState::O_WON
+  if game.state == GameState::O_WON
     game.player_two_score += 1
     puts "#{game.player_two.name} won the game!"
   end
-  if game.ended? == GameState::TIED
+  if game.state == GameState::TIED
     puts "Game is tied"
   end
 
